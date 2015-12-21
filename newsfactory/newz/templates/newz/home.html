@@ -1,0 +1,213 @@
+{% extends 'newz/base.html' %}
+
+{% block content %}
+
+
+<style type="text/css">
+
+.category_name{
+	color:red;
+}
+
+.showmore{
+	color:blue;
+}
+
+
+body{
+	margin-left:1em;
+	margin-right:1em;
+}
+
+
+</style>
+
+
+<script type="text/javascript">
+
+
+$( document ).ready(function() {
+	$( ".all" ).hide();
+	cat = $(".selected").val();
+	category = $("." + cat);
+	category.show();
+
+	$( ".rnewsbox" ).not(category).hide();
+
+	cat = $(".selected").val();
+	category = $(".n" + cat);
+	category.show();
+
+	$( ".nnewsbox" ).not(category).hide();
+
+
+	
+
+	$( ".showmore" ).click(function() {
+		$( this ).next().show();
+		$( this ).prev().hide();
+		$( this ).hide();
+
+	});
+
+	
+	$( ".selected" ).change(function() {
+		cat = $(".selected").val();
+		category = $("." + cat);
+		category.show();
+
+		$( ".rnewsbox" ).not(category).hide();
+
+	  
+		
+	});
+
+	$( ".nselected" ).change(function() {
+		cat = $(".nselected").val();
+		category = $(".n" + cat);
+		category.show();
+		console.log(category);
+
+		$( ".nnewsbox" ).not(category).hide();
+
+	  
+		
+	});
+
+
+
+});
+
+</script>
+
+
+
+<div class= "row">
+	<div class = "col-md-4 col-lg-3 col-sm-6 col-xs-6">
+		<h3> 
+			<small>Reuters 
+
+				<select class="form-control selected">
+				    <option value="world">World</option>
+				    <option value="business">Business</option>
+				    <option value="tech">Tech</option>
+				    <option value="politics">Politics</option>
+				    <option value="life">Life</option>
+				</select>
+
+			</small> 
+		</h3>
+	</div>
+
+
+
+
+	<div class = "col-md-4 col-lg-3 col-sm-6 col-xs-6" >
+		<h3> 
+			<small>New York Times 
+
+				<select class="form-control nselected">
+				    <option value="world">World</option>
+				     <option value="politics">Politics</option>
+				   
+				</select>
+
+			</small> 
+		</h3>
+	</div>
+
+
+</div>
+<hr>
+
+
+{% for category, items in reuters_data.items %}
+
+		
+
+
+	<div class = "col-md-4 col-lg-3 col-sm-6 col-xs-6 rnewsbox {{category}}">
+			<h3> 
+				<small>Reuters <span class="category_name">{{category}}</span></small> 
+
+
+
+			</h3>
+
+			{% for item in items %}
+
+			 <p> 
+			 	<small>
+			 		{{item.date}}:
+					<a href="{{item.link}}">	{{item.title}} </a>
+
+			 	</small>
+
+			 </p>
+
+
+	
+			<div class = "summary small">
+				<span class="summary"> {{item.summary}} </span>
+		
+				<a class = "showmore" >show more</a>
+				<span class= "all">{{item.all}}</span>
+
+			</div>
+			<hr>
+
+			{% endfor %}
+
+	</div>
+
+
+
+{% endfor %}
+
+
+{% for category, items in nyt_data.items %}
+
+		
+
+
+	<div class = "col-md-4 col-lg-3 col-sm-6 col-xs-6 nnewsbox n{{category}}">
+			<h3> 
+				<small>NYT <span class="category_name">{{category}}</span></small> 
+
+
+
+			</h3>
+
+			{% for item in items %}
+
+			 <p> 
+			 	<small>
+			 		{{item.date}}:
+					<a href="{{item.link}}">	{{item.title}} </a>
+
+			 	</small>
+
+			 </p>
+
+
+	
+			<div class = "summary small">
+				<span class="summary"> {{item.summary}} </span>
+		
+				<a class = "showmore" >show more</a>
+				<span class= "all">{{item.all}}</span>
+
+			</div>
+			<hr>
+
+			{% endfor %}
+
+	</div>
+
+
+
+{% endfor %}
+{% endblock %}
+
+
+

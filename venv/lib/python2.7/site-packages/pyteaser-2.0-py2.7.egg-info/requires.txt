@@ -1,0 +1,5 @@
+Pillow
+lxml
+cssselect
+jieba
+beautifulsoup
